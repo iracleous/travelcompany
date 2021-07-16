@@ -18,9 +18,10 @@ public class CustomerRepositoryImpl implements DaoRepository<Customer> {
 
     public void createTableCustomers() throws SQLException {
 
-        String query = "create table Customer ( id int primary key auto_increment , firstName varchar(100), LastName varchar(100), email varchar(100) ) ";
+        String query = "create table Customer ( id IDENTITY NOT NULL PRIMARY KEY , firstName varchar(100), LastName varchar(100), email varchar(100) ) ";
         PreparedStatement statement = conn.prepareStatement(query);
         statement.executeUpdate();
+        statement.close();
     }
 
 
@@ -30,7 +31,7 @@ public class CustomerRepositoryImpl implements DaoRepository<Customer> {
 
         String query = "insert into Customer ( firstName, LastName, email ) values(?,?,?)";
 
-        PreparedStatement statement = conn.prepareStatement(query);
+        PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, customer.getFirstName());
         statement.setString(2, customer.getLastName());
         statement.setString(3, customer.getEmail());
@@ -42,7 +43,7 @@ public class CustomerRepositoryImpl implements DaoRepository<Customer> {
             last_inserted_id = rs.getInt(1);
         }
 
-
+        statement.close();
         return last_inserted_id;
     }
 
@@ -57,6 +58,7 @@ public class CustomerRepositoryImpl implements DaoRepository<Customer> {
         customer.setFirstName(rs.getString(1));
         customer.setLastName(rs.getString(2));
         customer.setEmail(rs.getString(3));
+        statement.close();
         return customer;
 
     }

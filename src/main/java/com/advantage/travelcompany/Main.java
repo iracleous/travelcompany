@@ -30,7 +30,7 @@ public class Main {
 
         CustomerRepositoryImpl customerRepository = new CustomerRepositoryImpl(conn);
 
-   //     customerRepository.createTableCustomers();
+ //     customerRepository.createTableCustomers();
 
 
         Customer customer = new Customer();
