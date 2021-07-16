@@ -47,8 +47,18 @@ public class CustomerRepositoryImpl implements DaoRepository<Customer> {
     }
 
     @Override
-    public Customer getfromDb(int id) {
-        return null;
+    public Customer getfromDb(int id) throws SQLException {
+        String query = "select firstName, LastName, email from Customer  ";
+        PreparedStatement statement = conn.prepareStatement(query);
+        ResultSet rs = statement.executeQuery();
+
+        rs.next();
+        Customer customer = new Customer();
+        customer.setFirstName(rs.getString(1));
+        customer.setLastName(rs.getString(2));
+        customer.setEmail(rs.getString(3));
+        return customer;
+
     }
 
     @Override

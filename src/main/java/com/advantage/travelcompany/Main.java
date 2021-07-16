@@ -40,6 +40,10 @@ public class Main {
         logger.info("Customer id ={}", id);
 
 
+        Customer anotherCustomer = customerRepository.getfromDb(2);
+        logger.info("Customer = {} {} {}", anotherCustomer.getFirstName(), anotherCustomer.getLastName(), anotherCustomer.getEmail());
+
+
         conn.close();
 
     }

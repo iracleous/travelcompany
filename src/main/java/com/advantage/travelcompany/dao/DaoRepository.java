@@ -9,7 +9,7 @@ public interface DaoRepository<T> {
 
     //CRUD
     int addtoDb(T t) throws SQLException;
-    T getfromDb(int id);
+    T getfromDb(int id) throws SQLException;
     T updatetoDb(int id, String newEmail);
     boolean deleteFromDb(int id);
     List<T> getfromDb();
